@@ -1,0 +1,296 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vertex — Home</title>
+
+  <style>
+    /* ==== BASE ==== */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f4f9 0%, #e8eef6 100%);
+      color: #1e293b;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 1100px; margin: auto; padding: 0 20px; }
+
+    /* ==== NAVBAR ==== */
+    .navbar {
+      background: rgba(255, 255, 255, 0.8);
+      color: #1e293b;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    .logo-img {
+      width: 50px; /* small logo */
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-weight: 600;
+      transition: 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      color: #334155;
+    }
+    .nav-links a:hover {
+      background: rgba(79, 70, 229, 0.1);
+      color: #4f46e5;
+      transform: translateY(-2px);
+    }
+
+    /* Hamburger menu */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .hamburger span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: #334155;
+      border-radius: 3px;
+    }
+
+    @media (max-width:720px){
+      .hamburger { display: flex; }
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: rgba(255,255,255,0.95);
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        z-index: 999;
+      }
+      .nav-links.show { display: flex; }
+    }
+
+    /* ==== HERO ==== */
+    .hero {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 70vh;
+      text-align: center;
+      color: #fff;
+      background: linear-gradient(180deg, rgba(79, 70, 229, 0.7), rgba(49, 46, 129, 0.8)),
+                  url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1600&auto=format&fit=crop');
+      background-size: cover;
+      background-position: center;
+      padding: 60px 20px;
+    }
+    .hero-content {
+      max-width: 900px;
+      padding: 60px 32px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    }
+    .hero h1 {
+      font-size: clamp(30px, 5vw, 52px);
+      margin-bottom: 16px;
+      font-weight: 800;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .hero p {
+      font-size: clamp(16px, 2.5vw, 20px);
+      margin-bottom: 30px;
+      opacity: 0.95;
+    }
+    .cta {
+      background: #fff;
+      color: #4f46e5;
+      padding: 12px 24px;
+      border-radius: 14px;
+      font-weight: 700;
+      display: inline-block;
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.18);
+      transition: 0.2s ease-out;
+    }
+    .cta:hover {
+      box-shadow: 0 8px 25px rgba(79, 70, 229, 0.4);
+      transform: translateY(-2px);
+    }
+
+    /* ==== SERVICES ==== */
+    .section { padding: 60px 0; }
+    .title { text-align: center; font-size: 28px; font-weight: 800; color: #1e293b; margin-bottom: 40px; }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      justify-items: center;
+    }
+    .service {
+      width: 100%;
+      max-width: 380px;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      display: flex;
+      gap: 16px;
+      transition: all 0.35s cubic-bezier(0.2, 0.8, 0.4, 1.2);
+      cursor: pointer;
+      border: 1px solid #f0f4f9;
+      position: relative;
+      overflow: hidden;
+    }
+    .service:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 18px 40px rgba(79, 70, 229, 0.15); }
+    .service::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.05), rgba(79, 70, 229, 0.01));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      z-index: 0;
+      border-radius: 20px;
+    }
+    .service:hover::before { opacity: 1; }
+    .icon {
+      width: 54px; min-width: 54px; height: 54px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #4f46e5, #7c3aed);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; color: white;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3); z-index: 1;
+    }
+    .service-details { z-index: 1; }
+    .service h3 { margin: 0 0 8px; font-size: 20px; color: #1e293b; }
+    .service p { margin: 0; color: #475569; line-height: 1.5; }
+
+    @media (max-width:980px){ .services-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width:640px){ .services-grid { grid-template-columns: 1fr; } }
+
+    /* ==== FOOTER ==== */
+    .footer {
+      background: #1e293b; color: #cbd5e1; padding: 30px 0;
+    }
+    .footer .row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+    .footer small { font-size: 14px; }
+    .footer nav a { opacity: 0.85; margin-left: 18px; transition: opacity 0.2s; }
+    .footer nav a:hover { opacity: 1; color: #4f46e5; }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="{% static 'images/mylogo.gif' %}" class="logo-img" alt="Logo">
+        <span>Vertex Web</span>
+      </div>
+
+      <!-- Hamburger menu -->
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>We build modern web experiences</h1>
+      <p>Custom websites, reliable software solutions and 24/7 support — built to grow your business.</p>
+      <a class="cta" href="/services/">See Services</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="title">Our Services</div>
+
+      <div class="services-grid">
+        <div class="service">
+          <div class="icon">W</div>
+          <div class="service-details">
+            <h3>Web Development</h3>
+            <p>Responsive websites with fast performance and cutting-edge SEO optimization.</p>
+          </div>
+        </div>
+        <div class="service">
+          <div class="icon">A</div>
+          <div class="service-details">
+            <h3>Application Development</h3>
+            <p>Custom mobile and web applications built specifically to fit your business workflow.</p>
+          </div>
+        </div>
+        <div class="service">
+          <div class="icon">M</div>
+          <div class="service-details">
+            <h3>Maintenance & Support</h3>
+            <p>Regular updates, secure backups, and fast 24/7 technical support to keep you running smoothly.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <small>© Vertex Web — All rights reserved</small>
+        <nav>
+          <a href="/privacy/">Privacy</a>
+          <a href="/contact/">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const nav = document.querySelector('.nav-links');
+      nav.classList.toggle('show');
+    }
+  </script>
+
+</body>
+</html>

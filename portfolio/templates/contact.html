@@ -1,0 +1,239 @@
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Vertex Web</title>
+
+  <style>
+    /* ==== BASE ==== */
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: linear-gradient(135deg, #f0f4f9 0%, #e8eef6 100%);
+      color: #1e293b;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container { max-width: 1000px; margin: auto; padding: 0 20px; }
+
+    /* ==== NAVBAR from Home Page ==== */
+    .navbar {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      border-bottom: 1px solid rgba(255,255,255,0.45);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      z-index: 999;
+    }
+    .nav-inner {
+      height: 70px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 20px;
+      font-weight: 700;
+    }
+    .logo-img {
+      width: 45px;
+      height: auto;
+      border-radius: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: 800;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-weight: 600;
+    }
+    .nav-links a {
+      padding: 8px 14px;
+      border-radius: 10px;
+      transition: 0.25s;
+      color: #334155;
+    }
+    .nav-links a:hover {
+      background: rgba(79,70,229,0.1);
+      color: #4f46e5;
+      transform: translateY(-2px);
+    }
+
+    /* ==== TITLE BOX ==== */
+    .header-box {
+      text-align: center;
+      padding: 50px 20px;
+      color: #fff;
+      background: linear-gradient(180deg, rgba(79, 70, 229, 0.75), rgba(49, 46, 129, 0.75));
+      margin-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      backdrop-filter: blur(10px);
+    }
+    .header-box h1 {
+      margin: 0;
+      font-size: 40px;
+      font-weight: 800;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    /* ==== CONTACT BOX ==== */
+    .contact-card {
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.07);
+      margin-bottom: 50px;
+    }
+
+    .contact-card h2 {
+      color: #4f46e5;
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 15px;
+    }
+
+    p { font-size: 16px; margin: 8px 0; color: #475569; }
+
+    /* ==== FORM ==== */
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      border-radius: 14px;
+      border: 1px solid #d7ddf8;
+      margin: 10px 0 20px 0;
+      background: rgba(255,255,255,0.7);
+      font-size: 16px;
+      transition: 0.3s;
+    }
+    input:focus, textarea:focus {
+      border-color: #4f46e5;
+      box-shadow: 0 0 8px rgba(79,70,229,0.3);
+      outline: none;
+    }
+    button {
+      background: linear-gradient(45deg, #4f46e5, #7c3aed);
+      border: none;
+      padding: 14px 26px;
+      color: #fff;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 700;
+      box-shadow: 0 6px 18px rgba(79,70,229,0.25);
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(79,70,229,0.4);
+    }
+
+    /* SUCCESS MESSAGE */
+    .success-box {
+      background: rgba(223, 245, 225, 0.7);
+      border-left: 6px solid #28a745;
+      padding: 14px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+    }
+
+    /* MAP */
+    iframe {
+      width: 100%;
+      height: 300px;
+      border-radius: 20px;
+      border: 0;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+
+    /* FOOTER */
+    .footer {
+      background: #1e293b;
+      padding: 25px 0;
+      color: #cbd5e1;
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="container nav-inner">
+      <div class="brand">
+        <img src="{% static 'images/mylogo.gif' %}" class="logo-img" alt="Logo">
+        <span>Vertex Web</span>
+      </div>
+      <nav class="nav-links">
+        <a href="/">Home</a>
+        <a href="/about/">About</a>
+        <a href="/services/">Services</a>
+        <a href="/contact/">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HEADER TITLE -->
+  <div class="header-box">
+    <h1>Contact Us</h1>
+  </div>
+
+  <div class="container">
+
+    <div class="contact-card">
+
+      {% if messages %}
+      <div class="success-box">
+        {% for message in messages %}
+          {{ message }}
+        {% endfor %}
+      </div>
+      {% endif %}
+
+      <h2>Contact Details</h2>
+      <p><b>Phone:</b> +91 9747 2711 42</p>
+      <p><b>Email:</b> ihsanshanu03@gmail.com</p>
+      <p><b>Address:</b> Calicut, Kerala, India</p>
+
+      <hr><br>
+
+      <h2>✉ Send Us a Message</h2>
+
+      <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="name" placeholder="Your Name" required>
+        <input type="email" name="email" placeholder="Your Email" required>
+        <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+
+      <br><hr><br>
+
+      <h2>📍 Our Location</h2>
+
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3929.3247928352337!2d75.89031031471752!3d11.153669289028303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ba6502f41ef4e8b%3A0xf4c653a7548cccd!2sKinfra%20Techno%20Industrial%20Park!5e0!3m2!1sen!2sin!4v1735898590000!5m2!1sen!2sin"
+        allowfullscreen
+        loading="lazy">
+      </iframe>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    © Vertex Web — All rights reserved
+  </footer>
+
+</body>
+</html>
